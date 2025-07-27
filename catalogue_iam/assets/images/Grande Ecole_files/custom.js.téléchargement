@@ -1,0 +1,443 @@
+/**
+*
+* --------------------------------------------------------------------
+*
+* Template : Prelements Addon Plugin Js
+* Author : rs-theme
+* Author URI : http://www.rstheme.com/
+*
+* --------------------------------------------------------------------
+*
+**/
+(function($) {
+    "use strict";  
+    // magnificPopup init
+
+       
+    
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();         
+    });    
+
+    // Magnific Popup Box
+
+    var prelements_PRObox = $('.prelements_pro_box');
+    if(prelements_PRObox.length) {
+        $('.prelements_pro_box').magnificPopup({
+            delegate: '.pointer-events',
+            removalDelay: 500, 
+            callbacks: {
+                beforeOpen: function() {
+                   this.st.mainClass = this.st.el.attr('data-effect');
+                }
+            },
+            midClick: true 
+        });
+    }
+
+    var pre_tab_dsc = $('.pre-tab-dsc p');
+        if(pre_tab_dsc.length) {
+        $('.pre-tab-dsc p').each(function() {
+            var $this = $(this);
+            if($this.html().replace(/\s|&nbsp;/g, '').length == 0)
+                $this.remove();
+        });
+    }
+    
+
+    // tooltip Hover
+    var tooltip_hover = $('#pe_tooltip_hover');
+    if(tooltip_hover.length) {
+    (function(selector, horizontalOffset, verticalOffset) {
+          var items;
+          
+          selector = selector || '#pe_tooltip_hover';
+          horizontalOffset = horizontalOffset || 5;
+          verticalOffset = verticalOffset || 5;
+          
+          items = document.querySelectorAll(selector);
+          items = Array.prototype.slice.call(items);
+          
+          items.forEach(function(item) {
+            // Every time the pointer moves over the element the 
+            //  CSS-rule in overwritten with new values for 
+            //  top and left.
+            item.addEventListener('mousemove', function(e) {
+              let countCssRules = document.styleSheets[0].cssRules.length;
+              var rightSpace = document.body.clientWidth - e.pageX;
+              if( rightSpace > 300 ){
+                var newRule = selector +
+                ':hover #tooltip {  ' + 
+                   'right:auto; left: ' + (horizontalOffset + e.offsetX) + 'px; ' +
+                   'top: ' +  (e.offsetY + verticalOffset) + 'px; }';
+              }else{
+                var newRule = selector +
+                ':hover #tooltip {  ' + 
+               'left:auto; right: ' + (item.offsetWidth - e.offsetX) + 'px; ' +
+               'top: ' +  (e.offsetY + verticalOffset) + 'px; }';
+              }
+              document.styleSheets[0].insertRule(newRule, countCssRules);
+            });
+          });
+        })('#pe_tooltip_hover', 10, 5);
+    }
+
+
+    // Counter Up 
+
+    $.fn.skillBars = function( options ) { 
+        var settings = $.extend({
+            from: 0,            // number start
+            to: false,          // number end
+            speed: 1000,        // how long it should take to count between the target numbers
+            interval: 100,    // how often the element should be updated
+            decimals: 0,          // the number of decimal places to show
+            onUpdate: null,   // callback method for every time the element is updated,
+            onComplete: null,     // callback method for when the element finishes updating
+            /*onComplete: function(from) {
+                console.debug(this);
+            }*/
+            classes:{
+                skillBarBar : '.skillbar-bar',
+                skillBarPercent : '.skill-bar-percent',
+            }
+        }, options );
+ 
+        return this.each(function(){
+            
+            var obj = $(this),
+                to = (settings.to != false) ? settings.to : parseInt(obj.attr('data-percent'));
+                if(to > 100){
+                    to = 100;
+                };
+            var from = settings.from,
+                loops = Math.ceil(settings.speed / settings.interval),
+                increment = (to - from) / loops,
+                loopCount = 0,
+                interval = setInterval(updateValue, settings.interval);
+            
+            obj.find(settings.classes.skillBarBar).animate({
+                width: parseInt(obj.attr('data-percent'))+'%'
+            }, settings.speed);
+                        
+            function updateValue(){
+                from += increment;
+                loopCount++;
+                $(obj).find(settings.classes.skillBarPercent).text(from.toFixed(settings.decimals)+'%');
+
+                if (typeof(settings.onUpdate) == 'function') {
+                    settings.onUpdate.call(obj, from);
+                }
+
+                if (loopCount >= loops) {
+                    clearInterval(interval);
+                    from = to;
+
+                    if (typeof(settings.onComplete) == 'function') {
+                        settings.onComplete.call(obj, from);
+                    }
+                }
+            }
+            
+        }); 
+    }; 
+
+
+    $( window ).on( 'elementor/frontend/init', function() {             
+ 
+        //Logo slider code
+        elementorFrontend.hooks.addAction( 'frontend/element_ready/prelements-logo.default', function($scope, $){
+            jQuery(document).ready(function(){
+                jQuery( '.prelements-logo-slider' ).each(function( index ) {        
+                    var slider_id       = jQuery(this).attr('id'); 
+                    var slider_conf     = jQuery.parseJSON( jQuery(this).closest('.prelements-unique-slider').find('.prelements-slider-conf').attr('data-conf'));
+                   
+                    if( typeof(slider_id) != 'undefined' && slider_id != '' ) {
+                    jQuery('#'+slider_id).not('.slick-initialized').slick({
+                    slidesToShow    : parseInt(slider_conf.col_lg),
+                    centerMode      : (slider_conf.centerMode)  == "true" ? true : false,
+                    dots            : (slider_conf.sliderDots)  == "true" ? true : false,
+                    arrows          : (slider_conf.sliderNav) == "true" ? true : false,
+                    autoplay        : (slider_conf.slider_autoplay) == "true" ? true : false,
+                    slidesToScroll  : parseInt(slider_conf.slidesToScroll),
+                    centerPadding   : '15px',
+                    autoplaySpeed   : parseInt(slider_conf.autoplaySpeed),
+                    pauseOnHover    : (slider_conf.pauseOnHover) == "true" ? true : false,
+                    loop : false,
+
+                    responsive: [{
+                        breakpoint: 1200,
+                        settings: {
+                            slidesToShow: parseInt(slider_conf.col_md),
+                        }
+                    }, 
+                    {
+                        breakpoint: 992,
+                        settings: {
+                            slidesToShow: parseInt(slider_conf.col_sm),
+                        }
+                    }, 
+                    {
+                        breakpoint: 768,
+                        settings: {
+                            arrows: false,
+                            slidesToShow: parseInt(slider_conf.col_xs),
+                        }
+                    }, ]
+                });
+                }           
+                });
+            });
+        });
+
+        //blog slider code
+        elementorFrontend.hooks.addAction( 'frontend/element_ready/prelements-blog-slider.default', function($scope, $){
+            jQuery( '.prelements-addon-slider' ).each(function( index ) {        
+                var slider_id       = jQuery(this).attr('id'); 
+                var slider_conf     = jQuery.parseJSON( jQuery(this).closest('.prelements-unique-slider').find('.prelements-slider-conf').attr('data-conf'));               
+                if( typeof(slider_id) != 'undefined' && slider_id != '' ) {
+                jQuery('#'+slider_id).not('.slick-initialized').slick({
+                slidesToShow    : parseInt(slider_conf.col_lg),
+                centerMode      : (slider_conf.centerMode)  == "true" ? true : false,
+                dots            : (slider_conf.sliderDots)  == "true" ? true : false,
+                arrows          : (slider_conf.sliderNav) == "true" ? true : false,
+                autoplay        : (slider_conf.slider_autoplay) == "true" ? true : false,
+                slidesToScroll  : parseInt(slider_conf.slidesToScroll),
+                centerPadding   : '15px',
+                autoplaySpeed   : parseInt(slider_conf.autoplaySpeed),
+                pauseOnHover    : (slider_conf.pauseOnHover) == "true" ? true : false,
+                loop : false,
+                responsive: [{
+                    breakpoint: 1200,
+                    settings: {
+                        slidesToShow: parseInt(slider_conf.col_md),
+                    }
+                }, 
+                {
+                    breakpoint: 992,
+                    settings: {
+                        slidesToShow: parseInt(slider_conf.col_sm),
+                    }
+                }, 
+                {
+                    breakpoint: 768,
+                    settings: {
+                        arrows: false,
+                        slidesToShow: parseInt(slider_conf.col_xs),
+                    }
+                }, ]
+                });
+            }        
+            });       
+        });
+
+
+        //Category slider code
+        elementorFrontend.hooks.addAction( 'frontend/element_ready/prelements-category-slider.default', function($scope, $){
+            jQuery( '.prelements-category-slider' ).each(function( index ) {        
+                var slider_id       = jQuery(this).attr('id'); 
+                var slider_config     = jQuery.parseJSON( jQuery(this).closest('.prelements-unique-sliders').find('.prelements-slider-conf').attr('data-conf'));               
+                if( typeof(slider_id) != 'undefined' && slider_id != '' ) {
+                jQuery('#'+slider_id).not('.slick-initialized').slick({
+                slidesToShow    : parseInt(slider_config.col_lg),
+                centerMode      : (slider_config.centerMode)  == "true" ? true : false,
+                dots            : (slider_config.sliderDots)  == "true" ? true : false,
+                arrows          : (slider_config.sliderNav) == "true" ? true : false,
+                autoplay        : (slider_config.slider_autoplay) == "true" ? true : false,
+                slidesToScroll  : parseInt(slider_config.slidesToScroll),
+                centerPadding   : '15px',
+                autoplaySpeed   : parseInt(slider_config.autoplaySpeed),
+                pauseOnHover    : (slider_config.pauseOnHover) == "true" ? true : false,
+                loop : false,
+                responsive: [{
+                    breakpoint: 1200,
+                    settings: {
+                        slidesToShow: parseInt(slider_config.col_md),
+                    }
+                }, 
+                {
+                    breakpoint: 992,
+                    settings: {
+                        slidesToShow: parseInt(slider_config.col_sm),
+                    }
+                }, 
+                {
+                    breakpoint: 768,
+                    settings: {
+                        arrows: false,
+                        slidesToShow: parseInt(slider_config.col_xs),
+                    }
+                }, ]
+                });
+            }        
+            });       
+        });
+
+        $('.prelements-counter').counterUp({
+            delay: 20,
+            time: 1500
+        });
+
+        //InfoBox Slider Code
+        elementorFrontend.hooks.addAction( 'frontend/element_ready/prelements-infobox-slider.default', function($scope, $){
+            jQuery(document).ready(function(){
+                jQuery( '.prelements-infobox-slider' ).each(function( index ) {        
+                    var slider_id       = jQuery(this).attr('id'); 
+                    var slider_conf     = jQuery.parseJSON( jQuery(this).closest('.prelements-unique-slider').find('.prelements-slider-conf').attr('data-conf'));
+                   
+                    if( typeof(slider_id) != 'undefined' && slider_id != '' ) {
+                    jQuery('#'+slider_id).not('.slick-initialized').slick({
+                    slidesToShow    : parseInt(slider_conf.col_lg),
+                    centerMode      : (slider_conf.centerMode)  == "true" ? true : false,
+                    dots            : (slider_conf.sliderDots)  == "true" ? true : false,
+                    arrows          : (slider_conf.sliderNav) == "true" ? true : false,
+                    autoplay        : (slider_conf.slider_autoplay) == "true" ? true : false,
+                    slidesToScroll  : parseInt(slider_conf.slidesToScroll),
+                    centerPadding   : '15px',
+                    autoplaySpeed   : parseInt(slider_conf.autoplaySpeed),
+                    pauseOnHover    : (slider_conf.pauseOnHover) == "true" ? true : false,
+                    loop : false,
+
+                    responsive: [{
+                        breakpoint: 1200,
+                        settings: {
+                            slidesToShow: parseInt(slider_conf.col_md),
+                        }
+                    }, 
+                    {
+                        breakpoint: 992,
+                        settings: {
+                            slidesToShow: parseInt(slider_conf.col_sm),
+                        }
+                    }, 
+                    {
+                        breakpoint: 768,
+                        settings: {
+                            arrows: false,
+                            slidesToShow: parseInt(slider_conf.col_xs),
+                        }
+                    }, ]
+                });
+                }           
+                });
+            });
+        });
+
+    
+
+        //filter for blog posts
+        elementorFrontend.hooks.addAction( 'frontend/element_ready/prelements_blog_filter.default', function($scope, $){
+             $('.grids').imagesLoaded(function() {
+                $('.pre-blog-filter').on('click', 'button', function() {
+                    var filterValue = $(this).attr('data-filter');
+                    grids.isotope({
+                        filter: filterValue
+                    });
+                });
+                var grids = $('.grids').isotope({
+                    animationOptions: {
+                     duration: 750,
+                     easing: 'linear',
+                     queue: false
+                   },
+
+                    itemSelector: '.pre-bitem',
+                    percentPosition: true,
+                    masonry: {
+                        columnWidth: '.pre-bitem',
+                    }
+                });
+            });
+          
+
+            $('.pre-blog-filter button').on('click', function(event) {
+                $(this).siblings('.active').removeClass('active');
+                $(this).addClass('active');
+                event.preventDefault();
+            }); 
+        });
+
+
+
+        //filter for Products
+        elementorFrontend.hooks.addAction( 'frontend/element_ready/prelements_products_filter.default', function($scope, $){
+             $('.products-grids').imagesLoaded(function() {
+                $('.pre-products-filter').on('click', 'button', function() {
+                    var filterValue = $(this).attr('data-filter');
+                    grids.isotope({
+                        filter: filterValue
+                    });
+                });
+                var grids = $('.products-grids').isotope({
+                    animationOptions: {
+                        duration: 750,
+                        easing: 'linear',
+                        queue: false
+                    },
+
+                    itemSelector: '.pre-products-item',
+                    percentPosition: true,
+                    masonry: {
+                        columnWidth: '.pre-products-item',
+                    }
+                });
+            });          
+
+            $('.pre-products-filter button').on('click', function(event) {
+                $(this).siblings('.active').removeClass('active');
+                $(this).addClass('active');
+                event.preventDefault();
+            }); 
+        });
+
+        //flip Carousel code
+        elementorFrontend.hooks.addAction( 'frontend/element_ready/prelements-flip-carousel.default', function($scope, $){            
+            $("#pre__flip_carousel_default").flipster({
+                style: 'coverflow',
+                scrollwheel: false, 
+                fadeIn: 400, 
+            });
+
+            $("#pre__flip_carousel_style1").flipster({
+                style: 'carousel',
+                start:'center', 
+                loop: true,
+                scrollwheel: false,
+                fadeIn: 400,
+            });
+
+            $("#pre__flip_carousel_style2").flipster({                
+                style:'flat',
+                start:'center',
+                loop: true,
+                scrollwheel: false,
+                fadeIn: 400,
+            });
+
+            $("#pre__flip_carousel_style3").flipster({
+                style:'wheel',
+                start:'center', 
+                spacing: -0.7,
+                loop: true,
+                scrollwheel: false,
+                fadeIn: 400,
+            });            
+        });
+
+        //blog tab code
+        elementorFrontend.hooks.addAction( 'frontend/element_ready/prelements_blog_tab.default', function($scope, $){
+            jQuery( '.prelements-blog-tabdata' ).each(function( index ) {
+            var tab_conf     = jQuery.parseJSON( jQuery(this).closest('.prelements-blog-tab').find('.prelements-tab-conf').attr('data-conf'));                   
+            var blog_tab_data   = tab_conf.filter_action;          
+                              
+            if(blog_tab_data == 'hover'){                            
+                $(document).off('click.bs.tab.data-api', '[data-hover="tab"]');
+                $(document).on('mouseenter.bs.tab.data-api', '[data-toggle="tab"], [data-hover="tab"]', function () {
+                    $(this).tab('show');
+                });
+            }              
+            });      
+        }); 
+    });
+    
+})(jQuery);  
