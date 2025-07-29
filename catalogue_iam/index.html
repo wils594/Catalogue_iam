@@ -169,9 +169,6 @@
   </div>
 </section>
 
-<style>
-
-</style>
 
 
 
@@ -205,125 +202,184 @@
 
 <!-- SECTION TOUS LES PROGRAMMES -->
 <section id="programmes" class="programmes-section">
+  <style>
+    .programmes-section {
+      background: #f8fafc;
+      padding: 60px 20px;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .programmes-section .section-title {
+      text-align: center;
+      margin-bottom: 40px;
+      color: #1a202c;
+    }
+
+    .programmes-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .programme-card {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 24px;
+      max-width: 320px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease;
+      flex: 1 1 320px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .programme-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .programme-card h4 {
+      color: #1a202c;
+      margin-bottom: 12px;
+      font-size: 1.3rem;
+    }
+
+    .programme-card ul {
+      font-size: 0.95rem;
+      color: #2d3748;
+      line-height: 1.6;
+      padding-left: 20px;
+      flex-grow: 1;
+    }
+
+    .inscription-button {
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .btn-inscrire {
+      display: inline-block;
+      background-color: #1a73e8;
+      color: #fff;
+      padding: 12px 25px;
+      border-radius: 8px;
+      font-size: 1em;
+      text-decoration: none;
+      transition: background-color 0.3s;
+    }
+
+    .btn-inscrire:hover {
+      background-color: #155ab6;
+    }
+
+    /* Titres des catégories */
+    .category-title {
+      width: 100%;
+      font-size: 1.8rem;
+      color: #1a73e8;
+      border-left: 5px solid #1a73e8;
+      padding-left: 15px;
+      margin: 40px 0 20px 0;
+      font-weight: 600;
+      text-align: left;
+    }
+  </style>
+
   <div class="container">
     <div class="section-title">
-      <h2>Tous les Programmes</h2>
-      <p>Explorez nos formations conçues pour vous préparer aux défis actuels et futurs.</p>
+      <h2>Nos Programmes</h2>
+      <p>Explorez nos formations conçues pour répondre aux exigences du monde professionnel.</p>
     </div>
 
-    <div class="intro-programme">
-      <p><strong>Transformez votre avenir avec notre Licence.</strong></p>
-      <p>Vous venez d’avoir votre BAC ? Nos programmes de Licence au Groupe IAM vous offrent des opportunités infinies pour bâtir un avenir académique et professionnel prometteur. 
-      Bénéficiez d’une expertise approfondie, de précieuses opportunités de réseautage, développez des compétences distinctives et démarquez-vous sur le marché de l’emploi.</p>
-      <p>Notre processus d’admission valorise vos réalisations académiques et vos ambitions personnelles. Assurez-vous d’une expérience éducative unique et réussie à l’Institut Africain de Management.</p>
+    <!-- LICENCES -->
+    <h3 class="category-title"> Programmes de Licence</h3>
+    <div class="programmes-list">
+      <div class="programme-card">
+        <h4>Licence Professionnelle en Business Administration</h4>
+        <ul>
+          <li>Compétences en gestion, leadership et stratégie.</li>
+          <li>Maîtrise des fonctions clés de l’entreprise.</li>
+          <li>Préparation à divers secteurs : finance, marketing, etc.</li>
+        </ul>
+      </div>
+
+      <div class="programme-card">
+        <h4>Licence Professionnelle en Droit des Affaires</h4>
+        <ul>
+          <li>Droit commercial, fiscal et international.</li>
+          <li>Conseil juridique aux entreprises.</li>
+          <li>Carrières dans le secteur privé et public.</li>
+        </ul>
+      </div>
     </div>
 
-    <div class="programmes-grid">
-
+    <!-- MASTERS -->
+    <h3 class="category-title"> Programmes de Master</h3>
+    <div class="programmes-list">
       <div class="programme-card">
-        <h3>Licence Professionnelle en Business Administration</h3>
-        <p>Objectifs :</p>
+        <h4>Master en Supply Chain Management</h4>
         <ul>
-          <li>Développer les compétences en gestion, leadership et stratégie.</li>
-          <li>Maîtriser les fonctions clés de l’entreprise.</li>
-          <li>Savoir piloter efficacement une organisation.</li>
-          <li>Préparer à une carrière dans divers secteurs (finance, logistique, marketing, etc.).</li>
+          <li>Gestion logistique et optimisation des chaînes de valeur.</li>
+          <li>Transformation digitale des processus logistiques.</li>
         </ul>
       </div>
 
       <div class="programme-card">
-        <h3>Licence Professionnelle en Droit des Affaires</h3>
-        <p>Objectifs :</p>
+        <h4>Master Marketing et Intelligence d’Affaires</h4>
         <ul>
-          <li>Acquérir des connaissances solides en droit commercial, fiscal et international.</li>
-          <li>Développer la capacité à conseiller les entreprises sur les questions juridiques.</li>
-          <li>Préparer à des carrières juridiques dans le secteur privé et public.</li>
+          <li>Marketing digital et analyse de données.</li>
+          <li>Utilisation des technologies d’intelligence d’affaires.</li>
         </ul>
       </div>
 
       <div class="programme-card">
-        <h3>Master en Supply Chain Management</h3>
-        <p>Objectifs :</p>
+        <h4>Master Comptabilité, Contrôle et Audit</h4>
         <ul>
-          <li>Maîtriser les opérations logistiques et d’approvisionnement.</li>
-          <li>Optimiser la gestion de la chaîne de valeur.</li>
-          <li>Accompagner la transformation digitale dans les chaînes logistiques.</li>
+          <li>Expertise en audit, finance et contrôle interne.</li>
+          <li>Préparation à la certification d’expert-comptable.</li>
         </ul>
       </div>
 
       <div class="programme-card">
-        <h3>Master Marketing et Intelligence d’Affaires</h3>
-        <p>Objectifs :</p>
+        <h4>Master Communication et Digital Business</h4>
         <ul>
-          <li>Maîtriser les outils du marketing digital et de l’analyse de données.</li>
-          <li>Développer des stratégies marketing innovantes.</li>
-          <li>Utiliser les technologies d’intelligence d’affaires pour piloter les décisions.</li>
+          <li>Communication numérique et marketing digital.</li>
+          <li>Accompagnement de la transformation digitale.</li>
         </ul>
       </div>
 
       <div class="programme-card">
-        <h3>Master Comptabilité, Contrôle et Audit</h3>
-        <p>Objectifs :</p>
+        <h4>Master Banque & Ingénierie Financière</h4>
         <ul>
-          <li>Former des experts en gestion financière, audit et contrôle interne.</li>
-          <li>Préparer à la certification d’expert-comptable.</li>
-          <li>Développer des compétences analytiques et stratégiques pour la gestion d’entreprise.</li>
+          <li>Analyse des marchés et conception de solutions financières.</li>
         </ul>
       </div>
 
       <div class="programme-card">
-        <h3>Master Communication et Digital Business</h3>
-        <p>Objectifs :</p>
+        <h4>Master Management de la Qualité</h4>
         <ul>
-          <li>Développer une expertise en communication digitale.</li>
-          <li>Maîtriser les leviers du marketing digital et de la transformation numérique.</li>
-          <li>Accompagner les entreprises dans leur digitalisation.</li>
+          <li>Implémentation de normes ISO et audits qualité.</li>
+          <li>Amélioration continue des organisations.</li>
         </ul>
       </div>
 
       <div class="programme-card">
-        <h3>Master Banque & Ingénierie Financière</h3>
-        <p>Objectifs :</p>
+        <h4>Master Management du Capital Humain</h4>
         <ul>
-          <li>Acquérir une solide maîtrise des instruments financiers.</li>
-          <li>Analyser les marchés et les risques financiers.</li>
-          <li>Concevoir des solutions d’investissement performantes.</li>
+          <li>Stratégies RH, gestion des talents et transformation organisationnelle.</li>
         </ul>
       </div>
+    </div>
 
-      <div class="programme-card">
-        <h3>Master Management de la Qualité</h3>
-        <p>Objectifs :</p>
-        <ul>
-          <li>Implémenter et suivre des systèmes de management de la qualité.</li>
-          <li>Améliorer la performance globale des organisations.</li>
-          <li>Conduire des audits qualité et assurer la conformité aux normes ISO.</li>
-        </ul>
-      </div>
-
-      <div class="programme-card">
-        <h3>Master Management du Capital Humain</h3>
-        <p>Objectifs :</p>
-        <ul>
-          <li>Développer des compétences en stratégie RH.</li>
-          <li>Gérer les talents et la performance des équipes.</li>
-          <li>Accompagner le changement et la transformation organisationnelle.</li>
-        </ul>
-      </div>
-      <div class="inscription-button">
-  <a href="#inscription" class="btn-inscrire">S’inscrire</a>
-</div>
-<style>
-  
-
-</style>
+    <!-- BOUTON INSCRIPTION -->
+    <div class="inscription-button">
+      <a href="#inscription" class="btn-inscrire">S’inscrire</a>
     </div>
   </div>
 </section>
 
-<style>
-  
-</style>
 
 
 
