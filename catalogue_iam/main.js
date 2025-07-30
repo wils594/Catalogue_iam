@@ -24,25 +24,30 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --- Animation de décompte pour les statistiques ---
-    const animateCounter = (element) => {
-        const target = parseInt(element.dataset.target, 10);
-        const suffix = element.innerText.replace(/[0-9]/g, '');
-        let current = 0;
-        const duration = 2000;
-        const increment = target / (duration / 16);
 
-        const updateCount = () => {
-            current += increment;
-            if (current < target) {
-                element.innerText = Math.ceil(current) + suffix;
-                requestAnimationFrame(updateCount);
-            } else {
-                element.innerText = target + suffix;
-            }
-        };
-        requestAnimationFrame(updateCount);
+// --- Animation de décompte pour les statistiques ---
+const animateCounter = (element) => {
+    const target = parseInt(element.dataset.target, 10);
+    const prefix = element.dataset.prefix || '';
+    const suffix = element.innerText.replace(/[0-9]/g, '');
+    
+    let current = 0;
+    const duration = 2000;
+    const increment = target / (duration / 16);
+
+    const updateCount = () => {
+        current += increment;
+        if (current < target) {
+            // MODIFIÉ : On place le préfixe AVANT le nombre
+            element.innerText = prefix + Math.ceil(current) + suffix;
+            requestAnimationFrame(updateCount);
+        } else {
+            // MODIFIÉ : On place aussi le préfixe à la fin
+            element.innerText = prefix + target + suffix;
+        }
     };
+    requestAnimationFrame(updateCount);
+};
 
     // --- MODIFIÉ : Préparation du titre CTA pour l'animation par MOTS ---
     const ctaTitle = document.getElementById('cta-title');
@@ -97,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }, observerOptions);
 
     // Observer les éléments .fade-in et le titre CTA
-    document.querySelectorAll('.fade-in, #cta-title').forEach(el => {
+    document.querySelectorAll('.fade-in, #cta-title, .stat-item').forEach(el => {
         observer.observe(el);
     });
 
